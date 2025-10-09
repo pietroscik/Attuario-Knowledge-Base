@@ -1,0 +1,94 @@
+name: Attuario Knowledge Base – Roadmap
+description: >
+  Costruzione della base di conoscenza attuariale a partire dai materiali accademici,
+  con estrazione testuale, trascrizioni, ontologia semantica e integrazione con Attuario-AI.
+version: v0.3.0
+owner: pietroscik
+repository: pietroscik/Attuario-Knowledge-Base
+created: 2025-10-10
+
+milestones:
+
+  - title: 📍 Fase 1 – Inventario e Normalizzazione
+    due: +5d
+    objectives:
+      - Creare un inventario completo dei materiali disponibili (lezioni, slide, script, audio).
+      - Classificare per corso, tipologia e anno accademico.
+      - Garantire backup e struttura coerente per analisi successive.
+    tasks:
+      - [ ] Scansione delle directory con `build_corpus.py`
+      - [ ] Creazione di `materials_index.csv`
+      - [ ] Organizzazione file in `01_raw_materials/`
+    deliverables:
+      - materials_index.csv
+      - 01_raw_materials/ (strutturata per tipo di file)
+
+  - title: 📍 Fase 2 – Estrazione e Trascrizioni
+    due: +15d
+    objectives:
+      - Convertire tutti i PDF e PowerPoint in testo.
+      - Trascrivere i file audio con modelli Whisper.
+      - Allineare i testi estratti con i metadati.
+    tasks:
+      - [ ] Implementare script `extract_texts.py` per PDF e PPT
+      - [ ] Integrare Whisper per trascrizione audio
+      - [ ] Validare e salvare testi in `02_text_extracted/`
+    deliverables:
+      - 02_text_extracted/parsed_texts/
+      - 02_text_extracted/transcripts/
+
+  - title: 📍 Fase 3 – Ontologia Attuariale
+    due: +22d
+    objectives:
+      - Costruire un dizionario attuariale con 500+ concetti.
+      - Mappare sinonimi, categorie e fonti normative.
+      - Definire pesi semantici per categorie (IFRS, Solvency, ecc.).
+    tasks:
+      - [ ] Creare `ontology_seed.csv` con concetti di base
+      - [ ] Pulizia e unione in `ontology.json`
+      - [ ] Creare file `ontology_weights.yaml`
+    deliverables:
+      - 03_concept_mapping/ontology.json
+      - ontology_seed.csv, ontology_weights.yaml
+
+  - title: 📍 Fase 4 – Indicizzazione Vettoriale
+    due: +32d
+    objectives:
+      - Trasformare testi e concetti in embedding numerici.
+      - Creare database vettoriale per ricerca semantica.
+      - Validare precisione delle query.
+    tasks:
+      - [ ] Generare embedding con SentenceTransformers
+      - [ ] Salvare in `04_embeddings/vector_db/`
+      - [ ] Effettuare clustering e test di similarità
+    deliverables:
+      - 04_embeddings/vector_db/
+      - semantic_index.json
+
+  - title: 📍 Fase 5 – Integrazione in Attuario-AI
+    due: +39d
+    objectives:
+      - Integrare le metriche semantiche nel motore di scoring.
+      - Validare l’effetto sui punteggi di qualità.
+      - Rilasciare una versione consolidata del modello.
+    tasks:
+      - [ ] Aggiungere modulo `semantic.py` in Attuario-AI
+      - [ ] Aggiornare funzione `score_page()`
+      - [ ] Test benchmark con esempi Issue #8
+    deliverables:
+      - attuario_ai/semantic/semantic.py
+      - Versione v0.3.0 del pacchetto AI
+
+  - title: 📍 Fase 6 – Pubblicazione e Disseminazione
+    due: +45d
+    objectives:
+      - Pubblicare la Knowledge Base su attuario-eu.
+      - Creare una sezione “Knowledge” con ricerca semantica.
+      - Archiviare la versione stabile con DOI.
+    tasks:
+      - [ ] Esportare dataset e ontologia in JSON/Markdown
+      - [ ] Creare pagina `/knowledge/` su attuario-eu
+      - [ ] Pubblicare DOI su Zenodo
+    deliverables:
+      - Sezione pubblica su attuario-eu
+      - DOI ufficiale per la versione v0.3.0
